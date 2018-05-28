@@ -1,30 +1,34 @@
 import * as React from 'react'
+import {Record, List} from 'immutable'
 
-export class ToDoData {
+interface IToDoData {
+  id: number;
+  isDone: boolean;
+  text: string;
+};
+
+const ToDoDataRecord = Record({
+  id: -1,
+  isDone: false,
+  text: ''
+})
+
+export class ToDoData extends ToDoDataRecord implements IToDoData {  
   id: number;
   isDone: boolean;
   text: string;
 
-  constructor(id: number, isDone: boolean, text: string) {
-    this.id = id;
-    this.isDone = isDone;
-    this.text = text;
+  constructor(props: IToDoData) {
+    super(props)
   }
 }
-
-/*const dummyTodos = [
-  new ToDoData(0, true, 'make components'),
-  new ToDoData(1, false, 'design actions'),
-  new ToDoData(2, false, 'implement reducer'),
-  new ToDoData(3, false, 'connect components')
-];*/
 
 interface IProps {
   todo: ToDoData
 }
 
 interface IPropsList {
-  todos: ToDoData[]
+  todos: List<ToDoData>
 }
 
 
@@ -41,7 +45,7 @@ export const ToDoList = ({todos}: IPropsList) => {
         <div className='todo'>
           <input type='text' placeholder='Add todo' />
           <ul className='todo__list'>
-            {todos.map(t => (
+            { todos.toJS().map(t: ToDoData => (
               <li key={t.id} className='todo__item'>
                 <Todo todo={t} />
               </li>

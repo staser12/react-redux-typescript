@@ -1,5 +1,5 @@
 
-var LiveReloadPlugin = require('webpack-livereload-plugin');
+const LiveReloadPlugin = require('webpack-livereload-plugin');
 
 module.exports = {
   entry: './src/index.tsx',
@@ -15,7 +15,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.tsx/,
+        test: /\.tsx?$/,
         exclude: /node_modules/,
         loader: 'ts-loader'
       }
