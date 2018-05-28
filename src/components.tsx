@@ -45,11 +45,11 @@ export const ToDoList = ({todos}: IPropsList) => {
         <div className='todo'>
           <input type='text' placeholder='Add todo' />
           <ul className='todo__list'>
-            { todos.toJS().map(t: ToDoData => (
-              <li key={t.id} className='todo__item'>
-                <Todo todo={t} />
-              </li>
-            ))}
+              { todos.map((t: ToDoData) => {
+                return <li key={t.id} className='todo__item'>
+                  <Todo todo={t} />
+                </li>
+                })}
           </ul>
         </div>
       );

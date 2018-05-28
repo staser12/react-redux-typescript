@@ -21,6 +21,6 @@ const dummyTodos = List([
 ]);
 
 ReactDOM.render(
-  < ToDoList todos={dummyTodos} />,
+  <ToDoList todos={dummyTodos}/>,
   document.getElementById('app') as HTMLElement
 );
