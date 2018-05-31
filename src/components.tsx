@@ -1,8 +1,8 @@
 import * as React from 'react'
 import {Record, List} from 'immutable'
 
-interface IToDoData {
-  id: number;
+export interface IToDoData {
+  id: string;
   isDone: boolean;
   text: string;
 };
@@ -13,8 +13,8 @@ const ToDoDataRecord = Record({
   text: ''
 })
 
-export class ToDoData extends ToDoDataRecord implements IToDoData {  
-  id: number;
+export class ToDoData extends ToDoDataRecord implements IToDoData {
+  id: string;
   isDone: boolean;
   text: string;
 
