@@ -1,15 +1,12 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import { ToDoList } from './components';
-import { ToDoData } from './components';
-import {List} from 'immutable'
+import * as React from 'react'
+import * as ReactDOM from 'react-dom'
+import { ToDoList } from './components'
+import { ToDoData } from './components'
+import { List } from 'immutable'
+import { createStore } from 'redux'
+import reducer from './reducer'
 
-/*const dummyTodos = [
-  { id: 0, isDone: true,  text: 'make components' },
-  { id: 1, isDone: false, text: 'design actions' },
-  { id: 2, isDone: false, text: 'implement reducer' },
-  { id: 3, isDone: false, text: 'connect components' }
-];*/
+const store = createStore(reducer)
 
 
 const dummyTodos = List([

@@ -1,5 +1,6 @@
 import * as React from 'react'
 import {Record, List} from 'immutable'
+import { Dispatch } from 'react-redux'
 
 export interface IToDoData {
   id: string;
@@ -28,7 +29,9 @@ interface IProps {
 }
 
 interface IPropsList {
-  todos: List<ToDoData>
+  todos: List<ToDoData>,
+  toggleTodo: (id: number) => Dispatch,
+  addToDo: (text: string) => Dispatch
 }
 
 
@@ -40,17 +43,28 @@ export const Todo = ({todo}: IProps) => {
   }
 }
 
-export const ToDoList = ({todos}: IPropsList) => {
-    return (
-        <div className='todo'>
-          <input type='text' placeholder='Add todo' />
-          <ul className='todo__list'>
-              { todos.map((t: ToDoData) => {
-                return <li key={t.id} className='todo__item'>
-                  <Todo todo={t} />
-                </li>
-                })}
-          </ul>
-        </div>
-      );
+export const ToDoList = ({todos, toggleTodo, addToDo}: IPropsList) => {
+
+  const onSubmit = (event: React.SyntheticEvent<HTMLInputElement>) => {
+    const input: HTMLInputElement = event.target as HTMLInputElement;
+    const text: string = input.value;
+
+    input.value = '';
+    addToDo(text);
+  };
+
+  //const toggleClick = id => event => toggleTodo(id);
+
+  return (
+      <div className='todo'>
+        <input type='text' placeholder='Add todo' />
+        <ul className='todo__list'>
+            { todos.map((t: ToDoData) => {
+              return <li key={t.id} className='todo__item'>
+                <Todo todo={t} />
+              </li>
+              })}
+        </ul>
+      </div>
+    );
 }
