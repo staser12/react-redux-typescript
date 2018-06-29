@@ -1,11 +1,11 @@
-import { IToDoData } from './components';
+import { ToDoData } from './components';
 import { v4 as uuid } from 'uuid';
 
 const uid = uuid()
 
 export interface IToDoAction {
   type: string,
-  payload: IToDoData
+  payload: ToDoData
 }
 
 export function addTodo(text: string) {
@@ -15,7 +15,7 @@ export function addTodo(text: string) {
       id: uid,
       isDone: false,
       text: text
-    } as IToDoData
+    } as ToDoData
   } as IToDoAction
 }
 
@@ -24,6 +24,6 @@ export function toggleTodo(id: string) {
     type: 'TOGGLE_TODO',
     payload: {
       id: id
-    } as IToDoData
+    } as ToDoData
   } as IToDoAction
 }

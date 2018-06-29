@@ -3,11 +3,11 @@ const LiveReloadPlugin = require('webpack-livereload-plugin');
 
 module.exports = {
   entry: './src/index.tsx',
+  devtool: 'inline-source-map',
   output: {
     path: __dirname,
     filename: 'bundle.js'
   },
-
   resolve: {
     extensions: [".ts", ".tsx", ".js"]
   },

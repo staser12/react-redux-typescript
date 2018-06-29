@@ -1,8 +1,8 @@
 import { List } from 'immutable'
 import { IToDoAction } from './actions'
-import { ToDoData, IToDoData } from './components'
+import { ToDoData } from './components'
 
-const init = List<IToDoData>([])
+const init = List<ToDoData>([])
 
 export default function(todos=init, action: IToDoAction) {
   switch(action.type) {

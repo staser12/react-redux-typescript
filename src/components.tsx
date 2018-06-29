@@ -1,6 +1,6 @@
 import * as React from 'react'
-import {Record, List} from 'immutable'
-import { Dispatch } from 'react-redux'
+import { Record, List } from 'immutable'
+import { addTodo, toggleTodo } from './actions'
 
 export interface IToDoData {
   id: string;
@@ -24,43 +24,54 @@ export class ToDoData extends ToDoDataRecord implements IToDoData {
   }
 }
 
-interface IProps {
+export interface IProps {
   todo: ToDoData
-}
+};
 
-interface IPropsList {
-  todos: List<ToDoData>,
-  toggleTodo: (id: number) => Dispatch,
-  addToDo: (text: string) => Dispatch
-}
+export interface IPropsList {
+  todos: List<ToDoData>
+};
 
-
-export const Todo = ({todo}: IProps) => {
-  if(todo.isDone) {
-    return <span className="todo-done">{todo.text}</span>;
+export const Todo = (todo: IProps) => {
+  if(todo.todo.isDone) {
+    return <span className="todo-done">{todo.todo.text}</span>;
   } else {
-    return <span>{todo.text}</span>;
+    return <span>{todo.todo.text}</span>;
   }
 }
 
-export const ToDoList = ({todos, toggleTodo, addToDo}: IPropsList) => {
+export const ToDoList = (todos: IPropsList) => {
+
+  var todoInputRef: React.RefObject<HTMLInputElement> = React.createRef()
 
   const onSubmit = (event: React.SyntheticEvent<HTMLInputElement>) => {
-    const input: HTMLInputElement = event.target as HTMLInputElement;
-    const text: string = input.value;
+    //const input: HTMLInputElement = event.target as HTMLInputElement;
+    //const text: string = input.value;   
+    
+    if (todoInputRef.current != null) {
+      var todoInput: HTMLInputElement = todoInputRef.current
 
-    input.value = '';
-    addToDo(text);
+      if (todoInput !== null) {
+        const text: string = todoInput.value
+  
+        todoInput.value = '';
+        addTodo(text);
+      } else {
+        console.error("todo input ref is null!")
+      }
+    }
   };
 
-  //const toggleClick = id => event => toggleTodo(id);
+  const toggleClick = (id: string) => (event: React.MouseEvent<HTMLElement>) => toggleTodo(id);
 
   return (
       <div className='todo'>
-        <input type='text' placeholder='Add todo' />
+
+        <input type='text' placeholder='New todo text' ref={todoInputRef}/>
+        <input type='button' value='Add todo' onClick={onSubmit}/>
         <ul className='todo__list'>
-            { todos.map((t: ToDoData) => {
-              return <li key={t.id} className='todo__item'>
+            { todos.todos.map((t: ToDoData) => {
+              return <li key={t.id} className='todo__item' onClick={toggleClick(t.get('id'))}>              
                 <Todo todo={t} />
               </li>
               })}
